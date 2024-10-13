@@ -10,7 +10,7 @@ def create_main_window():
 
     # Начальное изображение
     current_stav = "stav1"
-    image = Image.open(f"{current_stav}.jpg")
+    image = Image.open(f"SVG/{current_stav}.png")
     photo = ImageTk.PhotoImage(image)
 
     # Метка для отображения изображения
@@ -26,7 +26,7 @@ def create_main_window():
 def update_image():
     """Обновляет изображение в окне на основе текущего состояния."""
     global photo, label, current_stav
-    image = Image.open(f"{current_stav}.jpg")
+    image = Image.open(f"SVG/{current_stav}.png")
     photo = ImageTk.PhotoImage(image)
     label.config(image=photo)
     label.image = photo  # Обновляем ссылку на изображение, чтобы избежать удаления из памяти
