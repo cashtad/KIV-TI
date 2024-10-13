@@ -94,8 +94,6 @@ def reset_stav():
 
 
 if __name__ == "__main__":
-    # Создаем главное окно и запускаем цикл
     create_main_window()
 
-    # Запускаем главный цикл Tkinter
     root.mainloop()
