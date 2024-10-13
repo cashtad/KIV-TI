@@ -1,63 +1,101 @@
-current_stav = "stav1"
-print("Current stav is: ", current_stav)
-while True:
-    command = input("Enter a letter a/b or commands 'STOP' or 'RESET': ")
-    if command == 'STOP':
-        break
-    if command == 'RESET':
-        current_stav = "stav1"
-        print("Current stav is: ", current_stav)
-        continue
+import tkinter as tk
+from PIL import Image, ImageTk
+
+
+def create_main_window():
+    """Создает главное окно Tkinter и отображает начальное изображение."""
+    global root, label, photo, current_stav, entry
+    root = tk.Tk()
+    root.title("Отображение изображения")
+
+    # Начальное изображение
+    current_stav = "stav1"
+    image = Image.open(f"{current_stav}.jpg")
+    photo = ImageTk.PhotoImage(image)
+
+    # Метка для отображения изображения
+    label = tk.Label(root, image=photo)
+    label.pack()
+
+    # Поле для ввода команд
+    entry = tk.Entry(root)
+    entry.pack()
+    entry.bind("<Return>", on_enter_press)  # Привязываем нажатие Enter к обработке команды
+
+
+def update_image():
+    """Обновляет изображение в окне на основе текущего состояния."""
+    global photo, label, current_stav
+    image = Image.open(f"{current_stav}.jpg")
+    photo = ImageTk.PhotoImage(image)
+    label.config(image=photo)
+    label.image = photo  # Обновляем ссылку на изображение, чтобы избежать удаления из памяти
+
+
+def process_command(command):
+    """Обрабатывает команду и обновляет состояние."""
+    global current_stav
+
+    # Логика смены состояний
     match current_stav:
         case "stav1":
             if command == "a":
                 print("Current stav is: ", current_stav)
-                continue
-            if command == "b":
+            elif command == "b":
                 current_stav = "stav2"
-                print("Current stav is: ", current_stav)
-                continue
         case "stav2":
             if command == "a":
                 current_stav = "stav3"
+            elif command == "b":
                 print("Current stav is: ", current_stav)
-                continue
-            if command == "b":
-                print("Current stav is: ", current_stav)
-                continue
         case "stav3":
             if command == "a":
                 current_stav = "stav1"
-                print("Current stav is: ", current_stav)
-                continue
-            if command == "b":
+            elif command == "b":
                 current_stav = "stav4"
-                print("Current stav is: ", current_stav)
-                continue
         case "stav4":
             if command == "a":
                 current_stav = "stav3"
-                print("Current stav is: ", current_stav)
-                continue
-            if command == "b":
+            elif command == "b":
                 current_stav = "stav5"
-                print("Current stav is: ", current_stav)
-                continue
         case "stav5":
             if command == "a":
                 current_stav = "stav6"
-                print("Current stav is: ", current_stav)
-                continue
-            if command == "b":
+            elif command == "b":
                 current_stav = "stav2"
-                print("Current stav is: ", current_stav)
-                continue
         case "stav6":
             if command == "a":
                 current_stav = "stav1"
-                print("Current stav is: ", current_stav)
-                continue
-            if command == "b":
+            elif command == "b":
                 current_stav = "stav4"
-                print("Current stav is: ", current_stav)
-                continue
+
+    update_image()  # Обновляем изображение
+
+
+def on_enter_press(event):
+    """Обрабатывает ввод команды после нажатия Enter."""
+    command = entry.get().strip()  # Получаем введенную строку из поля ввода
+    entry.delete(0, tk.END)  # Очищаем поле ввода после получения команды
+
+    if command.upper() == "RESET":
+        reset_stav()
+    elif command.upper() == "STOP":
+        root.quit()
+    else:
+        process_command(command)
+
+
+def reset_stav():
+    """Сбрасывает текущее состояние и обновляет изображение."""
+    global current_stav
+    current_stav = "stav1"
+    print("Current stav is: ", current_stav)
+    update_image()  # Обновляем изображение
+
+
+if __name__ == "__main__":
+    # Создаем главное окно и запускаем цикл
+    create_main_window()
+
+    # Запускаем главный цикл Tkinter
+    root.mainloop()
