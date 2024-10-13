@@ -7,7 +7,6 @@ while True:
     if command == 'RESET':
         current_stav = "stav1"
         print("Current stav is: ", current_stav)
-
         continue
     match current_stav:
         case "stav1":
