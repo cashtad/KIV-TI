@@ -1,5 +1,6 @@
 import tkinter as tk
-from PIL import Image, ImageTk
+import keyboard
+from PIL  import Image, ImageTk
 
 last_five_chars = []
 
@@ -18,11 +19,11 @@ def create_main_window():
     label = tk.Label(root, image=photo)
     label.pack()
 
-    # Поле для ввода команд
+    # # Поле для ввода команд
     entry = tk.Entry(root)
     entry.pack()
-    entry.bind("<Key>", disable_backspace)
-    entry.bind("<KeyRelease>", on_enter_press)  # Привязываем нажатие Enter к обработке команды
+    entry.bind("<Key>", disable_keys)
+    entry.bind("<KeyRelease>", on_press)  # Привязываем нажатие Enter к обработке команды
 
 
 def update_image():
@@ -45,74 +46,58 @@ def process_command(command):
                 print("Current stav is: ", current_stav)
             elif command == "b":
                 current_stav = "stav2"
-            else:
-                current_stav = "stav1"
         case "stav2":
             if command == "a":
                 current_stav = "stav3"
             elif command == "b":
                 print("Current stav is: ", current_stav)
-            else:
-                current_stav = "stav1"
         case "stav3":
             if command == "a":
                 current_stav = "stav1"
             elif command == "b":
                 current_stav = "stav4"
-            else:
-                current_stav = "stav1"
         case "stav4":
             if command == "a":
                 current_stav = "stav3"
             elif command == "b":
                 current_stav = "stav5"
-            else:
-                current_stav = "stav1"
         case "stav5":
             if command == "a":
                 current_stav = "stav6"
             elif command == "b":
                 current_stav = "stav2"
-            else:
-                current_stav = "stav1"
         case "stav6":
             if command == "a":
                 current_stav = "stav1"
             elif command == "b":
                 current_stav = "stav4"
-            else:
-                current_stav = "stav1"
 
     update_image()  # Обновляем изображение
 
 
-def on_enter_press(event):
-    # """Обрабатывает ввод команды."""
-    global last_five_chars
-    if event.keysym == 'BackSpace':
-        return 'break'
-    last_five_chars.append(event.char)
-    if len(last_five_chars) > 5:
-        last_five_chars.pop(0)
-    command = ''.join(last_five_chars).upper()
-
-    # Проверяем команды
-    if command == "RESET":
+def on_press(event):
+    """Обрабатывает ввод команды."""
+    if event.char == 'r':
         reset_stav()
-    elif command == "STOP":
+    elif event.char == 's':
         root.quit()
     else:
         process_command(event.char)
 
 
 def reset_stav():
-    """Сбрасывает текущее состояние текстового поля."""
-    entry.delete(0, tk.END)
+    """Сбрасывает текущее состояние и обновляет изображение."""
+    global current_stav
+    current_stav = "stav1"
+    print("Current stav is: ", current_stav)
+    update_image()
 
-def disable_backspace(event):
+def disable_keys(event):
     # Если нажата клавиша Backspace, блокируем действие
     if event.keysym == 'BackSpace':
         return 'break'  # 'break' предотвращает дальнейшую обработку события
+    if event.keysym != 'a' or event.keysym != 'b' or event.keysym != 's' or event.keysym != 'r':
+        return 'break'
 
 
 if __name__ == "__main__":
