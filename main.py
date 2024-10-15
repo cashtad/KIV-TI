@@ -42,15 +42,11 @@ def process_command(command):
     # Логика смены состояний
     match current_stav:
         case "stav1":
-            if command == "a":
-                print("Current stav is: ", current_stav)
-            elif command == "b":
+            if command == "b":
                 current_stav = "stav2"
         case "stav2":
             if command == "a":
                 current_stav = "stav3"
-            elif command == "b":
-                print("Current stav is: ", current_stav)
         case "stav3":
             if command == "a":
                 current_stav = "stav1"
@@ -89,7 +85,6 @@ def reset_stav():
     """Сбрасывает текущее состояние и обновляет изображение."""
     global current_stav
     current_stav = "stav1"
-    print("Current stav is: ", current_stav)
     update_image()
 
 def disable_keys(event):
