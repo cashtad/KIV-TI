@@ -35,6 +35,11 @@ def process_command(command):
     """Обрабатывает команду и обновляет состояние."""
     global current_stav
 
+    if command == "ф":
+        command = "a"
+    if command == "и":
+        command = "b"
+
     # Логика смены состояний
     match current_stav:
         case "stav1":
@@ -69,9 +74,9 @@ def process_command(command):
 
 def on_press(event):
     """Обрабатывает ввод команды."""
-    if event.char == 'r':
+    if event.char == 'r' or event.char == 'к':
         reset_stav()
-    elif event.char == 's':
+    elif event.char == 's' or event.char == 'ыифи':
         root.quit()
     else:
         process_command(event.char)
