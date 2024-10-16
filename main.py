@@ -11,7 +11,7 @@ def create_main_window():
 
     # Начальное изображение
     current_stav = "stav1"
-    image = Image.open(f"SVG/{current_stav}.png")
+    image = Image.open(f"PNG/{current_stav}.png")
     photo = ImageTk.PhotoImage(image)
 
     # Метка для отображения изображения
