@@ -1,5 +1,4 @@
 import tkinter as tk
-import keyboard
 from PIL  import Image, ImageTk
 
 last_five_chars = []
@@ -19,11 +18,8 @@ def create_main_window():
     label = tk.Label(root, image=photo)
     label.pack()
 
-    # # Поле для ввода команд
-    entry = tk.Entry(root)
-    entry.pack()
-    entry.bind("<Key>", disable_keys)
-    entry.bind("<KeyRelease>", on_press)  # Привязываем нажатие Enter к обработке команды
+    # Считыватель клавиш
+    root.bind("<KeyRelease>", on_press)  # Привязываем нажатие Enter к обработке команды
 
 
 def update_image():
@@ -86,14 +82,6 @@ def reset_stav():
     global current_stav
     current_stav = "stav1"
     update_image()
-
-def disable_keys(event):
-    # Если нажата клавиша Backspace, блокируем действие
-    if event.keysym == 'BackSpace':
-        return 'break'  # 'break' предотвращает дальнейшую обработку события
-    if event.keysym != 'a' or event.keysym != 'b' or event.keysym != 's' or event.keysym != 'r':
-        return 'break'
-
 
 if __name__ == "__main__":
     create_main_window()
