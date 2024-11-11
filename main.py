@@ -1,7 +1,9 @@
 import tkinter as tk
-from PIL  import Image, ImageTk
+import PIL.ImageTk as ImageTk
+import PIL.Image as Image
 
 last_five_chars = []
+
 
 def create_main_window():
     """Создает главное окно Tkinter и отображает начальное изображение."""
@@ -87,6 +89,7 @@ def reset_stav():
     global current_stav
     current_stav = "stav1"
     update_image()
+
 
 if __name__ == "__main__":
     create_main_window()
