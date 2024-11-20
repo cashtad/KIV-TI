@@ -17,7 +17,8 @@ def create_main_window():
     photo = ImageTk.PhotoImage(image)
 
 
-    label_history = tk.Label(root, text=input_history)
+    label_history = tk.Label(root, text=input_history, font=("Arial", 24, "bold"),
+)
     label_history.pack()
     # Метка для отображения изображения
     label = tk.Label(root, image=photo, textvariable=input_history)
